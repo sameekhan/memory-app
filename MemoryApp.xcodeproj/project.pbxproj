@@ -22,6 +22,7 @@
 		F4CCD576297B253A000436C3 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CCD575297B253A000436C3 /* AudioManager.swift */; };
 		F4CCD578297B89C7000436C3 /* RequestPermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CCD577297B89C7000436C3 /* RequestPermissionsView.swift */; };
 		F4CCD57A297B910A000436C3 /* AudioRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CCD579297B910A000436C3 /* AudioRecorderView.swift */; };
+		F4D4D78E2988226100A465ED /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D4D78D2988226100A465ED /* SearchManager.swift */; };
 		F4E0B0C329831015007203BA /* whisper-lib in Resources */ = {isa = PBXBuildFile; fileRef = F4E0B0C129831015007203BA /* whisper-lib */; };
 		F4E0B0C729831076007203BA /* model-binaries in Resources */ = {isa = PBXBuildFile; fileRef = F4E0B0C629831076007203BA /* model-binaries */; };
 		F4E0B0C9298310F5007203BA /* TranscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0B0C8298310F5007203BA /* TranscriptionManager.swift */; };
@@ -61,6 +62,7 @@
 		F4CCD575297B253A000436C3 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		F4CCD577297B89C7000436C3 /* RequestPermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPermissionsView.swift; sourceTree = "<group>"; };
 		F4CCD579297B910A000436C3 /* AudioRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderView.swift; sourceTree = "<group>"; };
+		F4D4D78D2988226100A465ED /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		F4E0B0C129831015007203BA /* whisper-lib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = "whisper-lib"; path = "MemoryApp/whisper-lib"; sourceTree = SOURCE_ROOT; };
 		F4E0B0C629831076007203BA /* model-binaries */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "model-binaries"; sourceTree = "<group>"; };
 		F4E0B0C8298310F5007203BA /* TranscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionManager.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			children = (
 				F4CCD575297B253A000436C3 /* AudioManager.swift */,
 				F4E0B0C8298310F5007203BA /* TranscriptionManager.swift */,
+				F4D4D78D2988226100A465ED /* SearchManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				F459FFCD2984271300A120D2 /* ggml-tiny.en.bin in Sources */,
 				F459FFCB2983542600A120D2 /* ggml-small.en.bin in Sources */,
 				F459FFC42983512400A120D2 /* ggml.c in Sources */,
+				F4D4D78E2988226100A465ED /* SearchManager.swift in Sources */,
 				F459FFC52983512400A120D2 /* whisper_utils.cpp in Sources */,
 				F459FFC62983512400A120D2 /* whisper.cpp in Sources */,
 				F4CCD576297B253A000436C3 /* AudioManager.swift in Sources */,
