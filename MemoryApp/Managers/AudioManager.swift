@@ -22,8 +22,6 @@ class AudioManager: NSObject, ObservableObject {
     
     var audioRecordingUrl: URL!
     
-    var audioPlayer: AVAudioPlayer?
-    
     @Published var isRecording = false
     
     var recordingStartTime: Date?
@@ -110,7 +108,7 @@ class AudioManager: NSObject, ObservableObject {
         audioRecorder?.prepareToRecord()
         
         do {
-            // Set audio session category to record and play back audio
+            // Set audio session category to record audio
             try self.audioSession.setCategory(.record, mode: .default)
         } catch {
             print("Setting category or activating session failed")
@@ -149,36 +147,6 @@ class AudioManager: NSObject, ObservableObject {
         fileManager.createFile(atPath: filePath, contents: updatedData, attributes: nil)
     }
     
-    // All audio player related code
-    
-    func initializeAudioPlayer() {
-        do {
-            print(self.audioRecordingUrl)
-            try self.audioSession.setCategory(.playback)
-            try self.audioSession.setActive(true)
-            self.audioPlayer = try AVAudioPlayer(contentsOf: self.audioRecordingUrl)
-            self.audioPlayer?.delegate = self
-            self.audioPlayer?.enableRate = true    // Enable playing rate change
-            self.audioPlayer?.prepareToPlay()
-            self.audioPlayer?.volume = 10
-        } catch {
-            print("Error from initializing audio player: \(error)")
-        }
-    }
-
-    
-    func playRecording() {
-        self.initializeAudioPlayer()
-        self.audioPlayer?.play()
-    }
-    
-    func stopPlayingRecording() {
-        self.audioPlayer?.stop()
-        self.audioPlayer = nil
-        self.deactivateAudioSession()
-    }
-    
-    
     func printDocuments() {
         // Get the document directory url
         func getDocumentsDirectory() -> URL {
@@ -206,13 +174,4 @@ extension AudioManager: AVAudioRecorderDelegate {
         print("Error while recording audio \(error!.localizedDescription)")
     }
     
-}
-
-extension AudioManager: AVAudioPlayerDelegate {
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        player.stop()
-    }
-    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
-        print("Error while playing audio \(error!.localizedDescription)")
-    }
 }

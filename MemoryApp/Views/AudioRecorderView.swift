@@ -29,10 +29,7 @@ struct AudioRecorderView: View {
                     audioManager.startRecording()
                 }
             }
-            Button("Play Recording") {
-                audioManager.playRecording()
-            }
-            .padding()
+            
             if transcriptionManager.isProcessing {
                 Text("transcription in progress...")
                     .padding()
