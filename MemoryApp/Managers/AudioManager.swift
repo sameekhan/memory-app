@@ -26,6 +26,9 @@ class AudioManager: NSObject, ObservableObject {
     
     @Published var isRecording = false
     
+    var recordingStartTime: Date?
+    var recordingDuration: Int = 60
+    
     static let settings: [String: Any] = [
          AVFormatIDKey: kAudioFormatLinearPCM, // PCM but really for WAV
          AVLinearPCMBitDepthKey: 16, // 16 bit
@@ -83,7 +86,8 @@ class AudioManager: NSObject, ObservableObject {
     func startRecording() {
         self.initializeAudioRecorder()
         self.activateAudioSession()
-        self.audioRecorder?.record()
+        self.audioRecorder?.record(forDuration: TimeInterval(self.recordingDuration * 60))
+        self.recordingStartTime = Date()
         self.isRecording.toggle()
     }
     
@@ -92,6 +96,7 @@ class AudioManager: NSObject, ObservableObject {
         self.audioRecorder = nil
         self.isRecording.toggle()
         self.deactivateAudioSession()
+        self.saveAudioRecordingMetadata()
     }
     
     func initializeAudioRecorder() {
@@ -110,6 +115,38 @@ class AudioManager: NSObject, ObservableObject {
         } catch {
             print("Setting category or activating session failed")
         }
+    }
+    
+    func saveAudioRecordingMetadata() {
+        // Define the Recordings struct for decoding and encoding the JSON data
+        struct Recordings: Codable {
+            let recordingStartTime: Date?
+            let recordingFileName: String
+            let recordingDuration: Int
+        }
+        
+        let fileManager = FileManager.default
+        let filePath = Bundle.main.path(forResource: "audioRecordingDateMetadata", ofType: "json")!
+
+        var recordings = [Recordings]()
+
+        // Read the JSON file and decode the data into an array of Recordings objects
+        if let data = fileManager.contents(atPath: filePath),
+           let recordingsArray = try? JSONDecoder().decode([Recordings].self, from: data) {
+            recordings = recordingsArray
+        }
+
+        // Create a new Recordings object to insert into the array
+        let newRecording = Recordings(recordingStartTime: self.recordingStartTime,
+                                      recordingFileName: self.audioRecordingUrl.absoluteString,
+                                      recordingDuration: self.recordingDuration)
+
+        // Append the new object to the array
+        recordings.append(newRecording)
+
+        // Encode the updated array of Recordings objects and write it to the JSON file
+        let updatedData = try? JSONEncoder().encode(recordings)
+        fileManager.createFile(atPath: filePath, contents: updatedData, attributes: nil)
     }
     
     // All audio player related code

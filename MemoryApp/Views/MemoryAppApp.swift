@@ -12,6 +12,9 @@ struct MemoryAppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear {
+                    MiscellaneousStateManager()
+                }
         }
     }
 }
