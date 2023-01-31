@@ -6,15 +6,19 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 // purpose is to make sure the basic files needed to run the app are present
-class MiscellaneousStateManager: NSObject {
+class MiscellaneousStateManager: NSObject, ObservableObject {
+    
+    var is_first_time_user: Bool
     
     override init() {
         super.init()
         
-        setupAudioRecordingDateMetadata()
+        self.setupAudioRecordingDateMetadata()
+        self.setFirstTimeUser()
     }
     
     func setupAudioRecordingDateMetadata() {
@@ -24,6 +28,17 @@ class MiscellaneousStateManager: NSObject {
         if !fileManager.fileExists(atPath: filePath) {
             let data = Data()
             fileManager.createFile(atPath: filePath, contents: data, attributes: nil)
+        }
+    }
+    
+    func setFirstTimeUser() {
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        if !launchedBefore {
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+            self.is_first_time_user = true
+            // First launch code here
+        } else {
+            self.is_first_time_user = false
         }
     }
     

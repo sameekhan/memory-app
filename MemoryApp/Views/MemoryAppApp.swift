@@ -9,12 +9,11 @@ import SwiftUI
 
 @main
 struct MemoryAppApp: App {
+    var miscellaneousStateManager = MiscellaneousStateManager()
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .onAppear {
-                    MiscellaneousStateManager()
-                }
+                .environmentObject(miscellaneousStateManager)
         }
     }
 }

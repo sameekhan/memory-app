@@ -40,14 +40,13 @@ class AudioManager: NSObject, ObservableObject {
         
         self.audioSession = AVAudioSession.sharedInstance()
         self.permission = self.audioSession.recordPermission
-        
-        // audio recorder set up
-        
+    }
+    
+    func makeAudioRecordingFile() {
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileUrl = documentsDirectory.appendingPathComponent("recordedVoice_\(UUID()).wav")
         self.audioRecordingUrl = fileUrl
     }
-    
     
     func requestAudioPermission() {
         // Request permission to record user's voice
@@ -83,6 +82,7 @@ class AudioManager: NSObject, ObservableObject {
     
     func startRecording() {
         self.initializeAudioRecorder()
+        self.makeAudioRecordingFile()
         self.activateAudioSession()
         self.audioRecorder?.record(forDuration: TimeInterval(self.recordingDuration * 60))
         self.recordingStartTime = Date()
@@ -95,6 +95,10 @@ class AudioManager: NSObject, ObservableObject {
         self.isRecording.toggle()
         self.deactivateAudioSession()
         self.saveAudioRecordingMetadata()
+        // start transcription
+        
+        // kick off next recording
+        
     }
     
     func initializeAudioRecorder() {

@@ -19,7 +19,8 @@ struct AudioRecorderView: View {
                 Button("Stop recording") {
                     audioManager.stopRecording()
                     DispatchQueue.main.async {
-                        transcriptionManager.transcribe(audioRecordingUrl: audioManager.audioRecordingUrl)
+                        // leaving out the call to whisper until it's usable
+                        //transcriptionManager.transcribe(audioRecordingUrl: audioManager.audioRecordingUrl)
                         transcriptionManager.recognizeSpeech(from: audioManager.audioRecordingUrl)
                     }
                 }
