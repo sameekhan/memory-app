@@ -14,29 +14,12 @@ struct AudioRecorderView: View {
     
     var body: some View {
         VStack {
-            if audioManager.isRecording {
-                Text("Recording...")
-                Button("Stop recording") {
-                    audioManager.stopRecording()
-                    DispatchQueue.main.async {
-                        // leaving out the call to whisper until it's usable
-                        //transcriptionManager.transcribe(audioRecordingUrl: audioManager.audioRecordingUrl)
-                        transcriptionManager.recognizeSpeech(from: audioManager.audioRecordingUrl)
-                    }
-                }
-            } else {
+            if !audioManager.isRecording {
+                // TODO: update this with its own view
                 Text("Tap to Record")
                 Button("Start Recording") {
                     audioManager.startRecording()
                 }
-            }
-            
-            if transcriptionManager.isProcessing {
-                Text("transcription in progress...")
-                    .padding()
-            } else {
-                Text("No transcription in progress.")
-                    .padding()
             }
         }
     }

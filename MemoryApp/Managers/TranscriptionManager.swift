@@ -20,7 +20,8 @@ class TranscriptionManager: NSObject, ObservableObject {
     private var recognitionRequest: SFSpeechRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     
-    func recognizeSpeech(from wavFileUrl: URL) {
+    func recognizeSpeech(from wavFileUrl: URL, metadataIdentifier: UUID) {
+        print("starting apple ASR transcription")
         let request = SFSpeechURLRecognitionRequest(url: wavFileUrl)
         request.shouldReportPartialResults = false
         
@@ -31,7 +32,11 @@ class TranscriptionManager: NSObject, ObservableObject {
                 return
             }
             print("Recognized speech: \(result.bestTranscription.formattedString)")
-            self.saveTranscriptionToFile(transcription: result.bestTranscription.formattedString)
+            self.saveTranscriptionToFile(
+                transcription: result.bestTranscription.formattedString,
+                audioRecordingUrl: wavFileUrl,
+                metadataIdentifier: metadataIdentifier
+            )
         }
         self.isProcessing.toggle()
     }
@@ -52,11 +57,15 @@ class TranscriptionManager: NSObject, ObservableObject {
         let executionTime = endTime - startTime
         print("read_wav took these many seconds to execute: \(executionTime)")
         self.isProcessing.toggle()
+//        self.saveTranscriptionToFile(
+//            transcription: result.bestTranscription.formattedString,
+//            audioRecordingUrl: audioRecordingUrl
+//        )
         
     }
     
-    func saveTranscriptionToFile(transcription: String) {
-        let fileName = "transcription.txt"
+    func saveTranscriptionToFile(transcription: String, audioRecordingUrl: URL, metadataIdentifier: UUID) {
+        let fileName = "transcription_\(metadataIdentifier).txt"
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileURL = documentsDirectory.appendingPathComponent(fileName)
         
@@ -66,6 +75,9 @@ class TranscriptionManager: NSObject, ObservableObject {
         } catch {
             print("Error saving transcription to file: \(error.localizedDescription)")
         }
+        self.saveTranscriptionMetadata(
+            transcriptionFileName: fileName,
+            metadataIdentifier: metadataIdentifier)
         self.textFileUrls = self.getTextTranscriptionDocuments()
     }
     
@@ -83,6 +95,25 @@ class TranscriptionManager: NSObject, ObservableObject {
             print("Error listing files in documents directory: \(error.localizedDescription)")
         }
         return textFiles
+    }
+    
+    func saveTranscriptionMetadata(transcriptionFileName: String, metadataIdentifier: UUID) {
+        var recordings = getRecordingsFromMetadataFile()
+        
+        // modify record to include transcription file name
+        for i in 0..<recordings.count {
+            if recordings[i].identifier == metadataIdentifier {
+                recordings[i].transcriptionFileName = transcriptionFileName
+                break
+            }
+        }
+
+        // Encode the updated array of Recordings objects and write it to the JSON file
+        let updatedData = try? JSONEncoder().encode(recordings)
+        FileManager.default.createFile(
+            atPath: getMetadataFilePath(),
+            contents: updatedData,
+            attributes: nil)
     }
 
 }

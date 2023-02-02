@@ -12,33 +12,46 @@ import SwiftUI
 // purpose is to make sure the basic files needed to run the app are present
 class MiscellaneousStateManager: NSObject, ObservableObject {
     
-    var is_first_time_user: Bool
+    var is_first_time_user: Bool = false
     
     override init() {
         super.init()
         
         self.setupAudioRecordingDateMetadata()
-        self.setFirstTimeUser()
+        self.setupInvertedIndexFile()
+        self.is_first_time_user = self.setFirstTimeUser()
     }
     
     func setupAudioRecordingDateMetadata() {
-        let filePath = Bundle.main.path(forResource: "audioRecordingDateMetadata", ofType: "json")!
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let filePath = documentsDirectory.appendingPathComponent("audioRecordingDateMetadata.json")
 
         let fileManager = FileManager.default
-        if !fileManager.fileExists(atPath: filePath) {
+        if !fileManager.fileExists(atPath: filePath.absoluteString) {
             let data = Data()
-            fileManager.createFile(atPath: filePath, contents: data, attributes: nil)
+            fileManager.createFile(atPath: filePath.absoluteString, contents: data, attributes: nil)
         }
     }
     
-    func setFirstTimeUser() {
+    func setupInvertedIndexFile() {
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let filePath = documentsDirectory.appendingPathComponent("invertedIndex.json")
+
+        let fileManager = FileManager.default
+        if !fileManager.fileExists(atPath: filePath.absoluteString) {
+            let data = Data()
+            fileManager.createFile(atPath: filePath.absoluteString, contents: data, attributes: nil)
+        }
+    }
+    
+    func setFirstTimeUser() -> Bool {
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         if !launchedBefore {
             UserDefaults.standard.set(true, forKey: "launchedBefore")
-            self.is_first_time_user = true
+            return true
             // First launch code here
         } else {
-            self.is_first_time_user = false
+            return false
         }
     }
     

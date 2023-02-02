@@ -81,35 +81,27 @@ class AudioManager: NSObject, ObservableObject {
     // all audio recorder related code
     
     func startRecording() {
-        self.initializeAudioRecorder()
         self.makeAudioRecordingFile()
+        self.initializeAudioRecorder()
         self.activateAudioSession()
-        self.audioRecorder?.record(forDuration: TimeInterval(self.recordingDuration * 60))
+        // just for testing
+//        self.audioRecorder?.record(forDuration: TimeInterval(self.recordingDuration * 60))
+        print("started recording")
+        self.audioRecorder?.record(forDuration: TimeInterval(5))
         self.recordingStartTime = Date()
         self.isRecording.toggle()
-    }
-    
-    func stopRecording() {
-        self.audioRecorder?.stop()
-        self.audioRecorder = nil
-        self.isRecording.toggle()
-        self.deactivateAudioSession()
-        self.saveAudioRecordingMetadata()
-        // start transcription
-        
-        // kick off next recording
-        
     }
     
     func initializeAudioRecorder() {
         do {
             self.audioRecorder = try AVAudioRecorder(url: self.audioRecordingUrl, settings: AudioManager.settings)
+            self.audioRecorder?.delegate = self
         } catch {
             print("failed setting up audio recorder X(", error)
         }
         
-        audioRecorder?.isMeteringEnabled = true
-        audioRecorder?.prepareToRecord()
+        self.audioRecorder?.isMeteringEnabled = true
+        self.audioRecorder?.prepareToRecord()
         
         do {
             // Set audio session category to record audio
@@ -119,36 +111,33 @@ class AudioManager: NSObject, ObservableObject {
         }
     }
     
-    func saveAudioRecordingMetadata() {
-        // Define the Recordings struct for decoding and encoding the JSON data
-        struct Recordings: Codable {
-            let recordingStartTime: Date?
-            let recordingFileName: String
-            let recordingDuration: Int
-        }
+    func saveAudioRecordingMetadata(identifier: UUID) {
         
-        let fileManager = FileManager.default
-        let filePath = Bundle.main.path(forResource: "audioRecordingDateMetadata", ofType: "json")!
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let filePath = documentsDirectory.appendingPathComponent("audioRecordingDateMetadata.json")
 
-        var recordings = [Recordings]()
+        var recordings = [Recording]()
 
         // Read the JSON file and decode the data into an array of Recordings objects
-        if let data = fileManager.contents(atPath: filePath),
-           let recordingsArray = try? JSONDecoder().decode([Recordings].self, from: data) {
+        if let data = FileManager.default.contents(atPath: filePath.absoluteString),
+           let recordingsArray = try? JSONDecoder().decode([Recording].self, from: data) {
             recordings = recordingsArray
         }
 
         // Create a new Recordings object to insert into the array
-        let newRecording = Recordings(recordingStartTime: self.recordingStartTime,
+        let newRecording = Recording(identifier: identifier,
+                                      recordingStartTime: self.recordingStartTime,
                                       recordingFileName: self.audioRecordingUrl.absoluteString,
-                                      recordingDuration: self.recordingDuration)
+                                      recordingDuration: self.recordingDuration,
+                                      transcriptionFileName: "",
+                                      isIndexed: false)
 
         // Append the new object to the array
         recordings.append(newRecording)
 
         // Encode the updated array of Recordings objects and write it to the JSON file
         let updatedData = try? JSONEncoder().encode(recordings)
-        fileManager.createFile(atPath: filePath, contents: updatedData, attributes: nil)
+        FileManager.default.createFile(atPath: filePath.absoluteString, contents: updatedData, attributes: nil)
     }
     
     func printDocuments() {
@@ -172,6 +161,24 @@ class AudioManager: NSObject, ObservableObject {
 extension AudioManager: AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         print("recording finished with result: \(flag)")
+        if flag {
+            self.isRecording.toggle()
+            self.deactivateAudioSession()
+            let recordingIdentifier = UUID()
+            self.saveAudioRecordingMetadata(identifier: recordingIdentifier)
+            let audioRecordingUrl = self.audioRecordingUrl
+            self.startRecording()
+            
+            // perform transcription and indexing in the background
+            let backgroundQueue = DispatchQueue.global(qos: .background)
+            backgroundQueue.async {
+                print("background transcription and indexing")
+                // Perform a long-running task in the background
+                let transcriptionManager = TranscriptionManager()
+                transcriptionManager.recognizeSpeech(from: audioRecordingUrl!, metadataIdentifier: recordingIdentifier)
+                SearchManager.constructIndex(metadataIdentifier: recordingIdentifier)
+            }
+        }
     }
     
     func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {

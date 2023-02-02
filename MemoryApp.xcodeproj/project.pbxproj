@@ -28,6 +28,7 @@
 		F4E0B0C9298310F5007203BA /* TranscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0B0C8298310F5007203BA /* TranscriptionManager.swift */; };
 		F4EECA57298350A7006EA555 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = F4EECA56298350A7006EA555 /* AudioKit */; };
 		F4FAA91929886A6800203A67 /* MiscellaneousStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAA91829886A6800203A67 /* MiscellaneousStateManager.swift */; };
+		F4FAA91B298AD50200203A67 /* RecordingsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAA91A298AD50200203A67 /* RecordingsStruct.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		F4EECA4F29834FDC006EA555 /* whisper_utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = whisper_utils.cpp; path = "MemoryApp/whisper-lib/whisper_utils.cpp"; sourceTree = "<group>"; };
 		F4EECA5029834FDC006EA555 /* whisper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = whisper.cpp; path = "MemoryApp/whisper-lib/whisper.cpp"; sourceTree = "<group>"; };
 		F4FAA91829886A6800203A67 /* MiscellaneousStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscellaneousStateManager.swift; sourceTree = "<group>"; };
+		F4FAA91A298AD50200203A67 /* RecordingsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsStruct.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 				F4CCD56E2979D90E000436C3 /* Views */,
 				F4CCD5432979A1CB000436C3 /* Assets.xcassets */,
 				F4CCD5452979A1CB000436C3 /* Preview Content */,
+				F4FAA91A298AD50200203A67 /* RecordingsStruct.swift */,
 			);
 			path = MemoryApp;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				F4E0B0C9298310F5007203BA /* TranscriptionManager.swift in Sources */,
 				F4CCD578297B89C7000436C3 /* RequestPermissionsView.swift in Sources */,
 				F4CCD5402979A1CA000436C3 /* MemoryAppApp.swift in Sources */,
+				F4FAA91B298AD50200203A67 /* RecordingsStruct.swift in Sources */,
 				F4CCD57A297B910A000436C3 /* AudioRecorderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
