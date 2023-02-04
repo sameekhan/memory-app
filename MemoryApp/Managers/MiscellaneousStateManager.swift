@@ -23,13 +23,24 @@ class MiscellaneousStateManager: NSObject, ObservableObject {
     }
     
     func setupAudioRecordingDateMetadata() {
+        print("setting up audio recording metadata")
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let filePath = documentsDirectory.appendingPathComponent("audioRecordingDateMetadata.json")
 
         let fileManager = FileManager.default
-        if !fileManager.fileExists(atPath: filePath.absoluteString) {
+//        printDocuments()
+        if !fileManager.fileExists(atPath: filePath.path) {
             let data = Data()
-            fileManager.createFile(atPath: filePath.absoluteString, contents: data, attributes: nil)
+            do {
+                try data.write(to: filePath)
+            } catch {
+                print(error)
+            }
+        } else {
+            if let data = FileManager.default.contents(atPath: filePath.path),
+               let recordingsArray = try? JSONDecoder().decode([Recording].self, from: data) {
+                    print(recordingsArray)
+            }
         }
     }
     
@@ -38,9 +49,13 @@ class MiscellaneousStateManager: NSObject, ObservableObject {
         let filePath = documentsDirectory.appendingPathComponent("invertedIndex.json")
 
         let fileManager = FileManager.default
-        if !fileManager.fileExists(atPath: filePath.absoluteString) {
+        if !fileManager.fileExists(atPath: filePath.path) {
             let data = Data()
-            fileManager.createFile(atPath: filePath.absoluteString, contents: data, attributes: nil)
+            do {
+                try data.write(to: filePath)
+            } catch {
+                print(error)
+            }
         }
     }
     

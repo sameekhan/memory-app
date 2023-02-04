@@ -119,7 +119,7 @@ class AudioManager: NSObject, ObservableObject {
         var recordings = [Recording]()
 
         // Read the JSON file and decode the data into an array of Recordings objects
-        if let data = FileManager.default.contents(atPath: filePath.absoluteString),
+        if let data = FileManager.default.contents(atPath: filePath.path),
            let recordingsArray = try? JSONDecoder().decode([Recording].self, from: data) {
             recordings = recordingsArray
         }
@@ -127,7 +127,7 @@ class AudioManager: NSObject, ObservableObject {
         // Create a new Recordings object to insert into the array
         let newRecording = Recording(identifier: identifier,
                                       recordingStartTime: self.recordingStartTime,
-                                      recordingFileName: self.audioRecordingUrl.absoluteString,
+                                      recordingFileName: self.audioRecordingUrl.path,
                                       recordingDuration: self.recordingDuration,
                                       transcriptionFileName: "",
                                       isIndexed: false)
@@ -137,24 +137,12 @@ class AudioManager: NSObject, ObservableObject {
 
         // Encode the updated array of Recordings objects and write it to the JSON file
         let updatedData = try? JSONEncoder().encode(recordings)
-        FileManager.default.createFile(atPath: filePath.absoluteString, contents: updatedData, attributes: nil)
-    }
-    
-    func printDocuments() {
-        // Get the document directory url
-        func getDocumentsDirectory() -> URL {
-            let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-            let documentsDirectory = paths[0]
-            return documentsDirectory
+        do {
+            try updatedData?.write(to: filePath)
+//            self.printDocuments() for debugging
+        } catch {
+            print(error)
         }
-        let documentDirectory = getDocumentsDirectory()
-        print("documentDirectory", documentDirectory.path)
-        // Get the directory contents urls (including subfolders urls)
-        let directoryContents = try! FileManager.default.contentsOfDirectory(
-           at: documentDirectory,
-           includingPropertiesForKeys: nil
-        )
-        print("directoryContents:", directoryContents.map { $0.lastPathComponent })
     }
 }
 
@@ -170,13 +158,18 @@ extension AudioManager: AVAudioRecorderDelegate {
             self.startRecording()
             
             // perform transcription and indexing in the background
-            let backgroundQueue = DispatchQueue.global(qos: .background)
-            backgroundQueue.async {
+            DispatchQueue.global(qos: .background).async {
                 print("background transcription and indexing")
                 // Perform a long-running task in the background
                 let transcriptionManager = TranscriptionManager()
-                transcriptionManager.recognizeSpeech(from: audioRecordingUrl!, metadataIdentifier: recordingIdentifier)
-                SearchManager.constructIndex(metadataIdentifier: recordingIdentifier)
+                DispatchQueue.main.async {
+                    SearchManager.constructIndex(metadataIdentifier: recordingIdentifier)
+                }
+                transcriptionManager.recognizeSpeech(
+                    from: audioRecordingUrl!,
+                    metadataIdentifier: recordingIdentifier
+                )
+                
             }
         }
     }

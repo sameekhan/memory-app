@@ -52,7 +52,7 @@ struct SearchManager {
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let filePath = documentsDirectory.appendingPathComponent("invertedIndex.json")
         // Read the JSON file and decode the data into an array of Recordings objects
-        if let data = FileManager.default.contents(atPath: filePath.absoluteString),
+        if let data = FileManager.default.contents(atPath: filePath.path),
            var invertedIndexData = try? JSONDecoder().decode([String: [String]].self, from: data) {
             invertedIndex = invertedIndexData
         }
@@ -68,7 +68,11 @@ struct SearchManager {
         // update the inverted index
         // Encode the updated array of Recordings objects and write it to the JSON file
         let updatedData = try? JSONEncoder().encode(invertedIndex)
-        FileManager.default.createFile(atPath: filePath.absoluteString, contents: updatedData, attributes: nil)
+        do {
+            try updatedData?.write(to: filePath)
+        } catch {
+            print(error)
+        }
     }
     
     // This function takes an inverted index stored as a dictionary and a search query as input
@@ -100,15 +104,25 @@ struct SearchManager {
         return Array(matchingDocumentIds)
     }
     
+    static func getTranscriptionFilePath(fileName: String) -> URL {
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let filePath = documentsDirectory.appendingPathComponent(fileName)
+        return filePath
+    }
+    
     static func constructIndex(metadataIdentifier: UUID) {
         // get metadata record
-        var record = getRecordingsFromMetadataFile().filter {
+        let record = getRecordingsFromMetadataFile().filter {
             return $0.identifier == metadataIdentifier
         }.first!
         
+        var transcriptionText: String = ""
         // get transcription file
-        let data = FileManager.default.contents(atPath: record.transcriptionFileName)
-        let transcriptionText = String(decoding: data!, as: UTF8.self)
+        if let data = try? Data(contentsOf: getTranscriptionFilePath(fileName: record.transcriptionFileName)) {
+            transcriptionText = String(data: data, encoding: .utf8)!
+        }
+//        let data = FileManager.default.contents(atPath: record.transcriptionFileName)
+//        let transcriptionText = String(decoding: data!, as: UTF8.self)
 
         // Tokenize the document
         let transcriptionTokens = SearchManager.tokenize(text: transcriptionText)

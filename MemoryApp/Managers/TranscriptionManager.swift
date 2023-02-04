@@ -10,9 +10,6 @@ import AudioKit
 import Speech
 
 class TranscriptionManager: NSObject, ObservableObject {
-    var modelName: String = "ggml-tiny.en"
-    var modelFileType: String = "bin"
-    
     @Published var isProcessing: Bool = false
     @Published var textFileUrls: [URL] = []
     
@@ -39,29 +36,6 @@ class TranscriptionManager: NSObject, ObservableObject {
             )
         }
         self.isProcessing.toggle()
-    }
-    
-    func transcribe(audioRecordingUrl: URL) {
-        func cb(_ progress: UnsafePointer<Int8>?) -> Int32 {
-            let str = String(cString: progress!)
-            print(str)
-            return 0
-        }
-        
-        let modelURL = Bundle.main.url(forResource: self.modelName, withExtension: self.modelFileType, subdirectory: "model-binaries")
-        
-        self.isProcessing.toggle()
-        let startTime = CFAbsoluteTimeGetCurrent()
-        read_wav(modelURL!.absoluteURL.path, audioRecordingUrl.absoluteURL.path, cb)
-        let endTime = CFAbsoluteTimeGetCurrent()
-        let executionTime = endTime - startTime
-        print("read_wav took these many seconds to execute: \(executionTime)")
-        self.isProcessing.toggle()
-//        self.saveTranscriptionToFile(
-//            transcription: result.bestTranscription.formattedString,
-//            audioRecordingUrl: audioRecordingUrl
-//        )
-        
     }
     
     func saveTranscriptionToFile(transcription: String, audioRecordingUrl: URL, metadataIdentifier: UUID) {
@@ -110,10 +84,12 @@ class TranscriptionManager: NSObject, ObservableObject {
 
         // Encode the updated array of Recordings objects and write it to the JSON file
         let updatedData = try? JSONEncoder().encode(recordings)
-        FileManager.default.createFile(
-            atPath: getMetadataFilePath(),
-            contents: updatedData,
-            attributes: nil)
+        do {
+            try updatedData?.write(to: getMetadataFilePath())
+        } catch {
+            print(error)
+        }
+        
     }
 
 }

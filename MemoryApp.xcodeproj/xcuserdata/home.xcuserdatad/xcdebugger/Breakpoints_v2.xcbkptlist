@@ -71,17 +71,145 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5AE9F0AF-B0E6-46AE-A5DE-F8592628FDC5"
+            uuid = "C19873EE-61EE-4C21-B3B2-798340248B86"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MemoryApp/Managers/TranscriptionManager.swift"
+            filePath = "MemoryApp/Managers/SearchManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "transcribe(audioRecordingUrl:)"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "constructIndex(metadataIdentifier:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C19873EE-61EE-4C21-B3B2-798340248B86 - aa9a9b1356f09e9f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static MemoryApp.SearchManager.constructIndex(metadataIdentifier: Foundation.UUID) -&gt; ()"
+                  moduleName = "MemoryApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/home/code/memory/Memory-App/MemoryApp/Managers/SearchManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "109"
+                  endingLineNumber = "109"
+                  offsetFromSymbolStart = "380">
+               </Location>
+               <Location
+                  uuid = "C19873EE-61EE-4C21-B3B2-798340248B86 - 40a13ea738aa7d07"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (MemoryApp.Recording) -&gt; Swift.Bool in static MemoryApp.SearchManager.constructIndex(metadataIdentifier: Foundation.UUID) -&gt; ()"
+                  moduleName = "MemoryApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/home/code/memory/Memory-App/MemoryApp/Managers/SearchManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "110"
+                  endingLineNumber = "110"
+                  offsetFromSymbolStart = "128">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2889D7E6-F822-47AA-9080-37946D3CBBB9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MemoryApp/Managers/AudioManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "saveAudioRecordingMetadata(identifier:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "25E90B56-C52D-40EA-B74D-4F7010C217B6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MemoryApp/Managers/AudioManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "saveAudioRecordingMetadata(identifier:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "69F2202F-DE53-4D04-8F8F-30DF83DCDB3D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MemoryApp/Managers/MiscellaneousStateManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "setupAudioRecordingDateMetadata()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4948D4E9-1F06-4358-A9D7-4279D05A8573"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MemoryApp/Helpers.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "printDocuments()"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "4948D4E9-1F06-4358-A9D7-4279D05A8573 - 22e6d27bdadf1a72"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MemoryApp.printDocuments() -&gt; ()"
+                  moduleName = "MemoryApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/home/code/memory/Memory-App/MemoryApp/Helpers.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "956">
+               </Location>
+               <Location
+                  uuid = "4948D4E9-1F06-4358-A9D7-4279D05A8573 - 7d766e9f1f2f7e88"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Foundation.URL) -&gt; Swift.String in MemoryApp.printDocuments() -&gt; ()"
+                  moduleName = "MemoryApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/home/code/memory/Memory-App/MemoryApp/Helpers.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "120">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

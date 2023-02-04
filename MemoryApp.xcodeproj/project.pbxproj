@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F459FFC42983512400A120D2 /* ggml.c in Sources */ = {isa = PBXBuildFile; fileRef = F4EECA4E29834FDB006EA555 /* ggml.c */; };
-		F459FFC52983512400A120D2 /* whisper_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4EECA4F29834FDC006EA555 /* whisper_utils.cpp */; };
-		F459FFC62983512400A120D2 /* whisper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4EECA5029834FDC006EA555 /* whisper.cpp */; };
-		F459FFCB2983542600A120D2 /* ggml-small.en.bin in Sources */ = {isa = PBXBuildFile; fileRef = F459FFCA2983542600A120D2 /* ggml-small.en.bin */; };
-		F459FFCD2984271300A120D2 /* ggml-tiny.en.bin in Sources */ = {isa = PBXBuildFile; fileRef = F459FFCC2984271300A120D2 /* ggml-tiny.en.bin */; };
 		F4CCD5402979A1CA000436C3 /* MemoryAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CCD53F2979A1CA000436C3 /* MemoryAppApp.swift */; };
 		F4CCD5422979A1CA000436C3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CCD5412979A1CA000436C3 /* ContentView.swift */; };
 		F4CCD5442979A1CB000436C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4CCD5432979A1CB000436C3 /* Assets.xcassets */; };
@@ -23,9 +18,8 @@
 		F4CCD578297B89C7000436C3 /* RequestPermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CCD577297B89C7000436C3 /* RequestPermissionsView.swift */; };
 		F4CCD57A297B910A000436C3 /* AudioRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CCD579297B910A000436C3 /* AudioRecorderView.swift */; };
 		F4D4D78E2988226100A465ED /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D4D78D2988226100A465ED /* SearchManager.swift */; };
-		F4E0B0C329831015007203BA /* whisper-lib in Resources */ = {isa = PBXBuildFile; fileRef = F4E0B0C129831015007203BA /* whisper-lib */; };
-		F4E0B0C729831076007203BA /* model-binaries in Resources */ = {isa = PBXBuildFile; fileRef = F4E0B0C629831076007203BA /* model-binaries */; };
 		F4E0B0C9298310F5007203BA /* TranscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0B0C8298310F5007203BA /* TranscriptionManager.swift */; };
+		F4ECF868298DBED9006EB283 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ECF867298DBED9006EB283 /* Helpers.swift */; };
 		F4EECA57298350A7006EA555 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = F4EECA56298350A7006EA555 /* AudioKit */; };
 		F4FAA91929886A6800203A67 /* MiscellaneousStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAA91829886A6800203A67 /* MiscellaneousStateManager.swift */; };
 		F4FAA91B298AD50200203A67 /* RecordingsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAA91A298AD50200203A67 /* RecordingsStruct.swift */; };
@@ -49,8 +43,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F459FFCA2983542600A120D2 /* ggml-small.en.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "ggml-small.en.bin"; path = "model-binaries/ggml-small.en.bin"; sourceTree = "<group>"; };
-		F459FFCC2984271300A120D2 /* ggml-tiny.en.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "ggml-tiny.en.bin"; path = "model-binaries/ggml-tiny.en.bin"; sourceTree = "<group>"; };
 		F4CCD53C2979A1CA000436C3 /* MemoryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4CCD53F2979A1CA000436C3 /* MemoryAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryAppApp.swift; sourceTree = "<group>"; };
 		F4CCD5412979A1CA000436C3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -65,12 +57,8 @@
 		F4CCD577297B89C7000436C3 /* RequestPermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPermissionsView.swift; sourceTree = "<group>"; };
 		F4CCD579297B910A000436C3 /* AudioRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderView.swift; sourceTree = "<group>"; };
 		F4D4D78D2988226100A465ED /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
-		F4E0B0C129831015007203BA /* whisper-lib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = "whisper-lib"; path = "MemoryApp/whisper-lib"; sourceTree = SOURCE_ROOT; };
-		F4E0B0C629831076007203BA /* model-binaries */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "model-binaries"; sourceTree = "<group>"; };
 		F4E0B0C8298310F5007203BA /* TranscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionManager.swift; sourceTree = "<group>"; };
-		F4EECA4E29834FDB006EA555 /* ggml.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ggml.c; path = "MemoryApp/whisper-lib/ggml.c"; sourceTree = "<group>"; };
-		F4EECA4F29834FDC006EA555 /* whisper_utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = whisper_utils.cpp; path = "MemoryApp/whisper-lib/whisper_utils.cpp"; sourceTree = "<group>"; };
-		F4EECA5029834FDC006EA555 /* whisper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = whisper.cpp; path = "MemoryApp/whisper-lib/whisper.cpp"; sourceTree = "<group>"; };
+		F4ECF867298DBED9006EB283 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		F4FAA91829886A6800203A67 /* MiscellaneousStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscellaneousStateManager.swift; sourceTree = "<group>"; };
 		F4FAA91A298AD50200203A67 /* RecordingsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsStruct.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,12 +92,6 @@
 		F4CCD5332979A1CA000436C3 = {
 			isa = PBXGroup;
 			children = (
-				F459FFCC2984271300A120D2 /* ggml-tiny.en.bin */,
-				F459FFCA2983542600A120D2 /* ggml-small.en.bin */,
-				F4EECA4E29834FDB006EA555 /* ggml.c */,
-				F4EECA4F29834FDC006EA555 /* whisper_utils.cpp */,
-				F4EECA5029834FDC006EA555 /* whisper.cpp */,
-				F4E0B0C629831076007203BA /* model-binaries */,
 				F4CCD53E2979A1CA000436C3 /* MemoryApp */,
 				F4CCD54F2979A1CB000436C3 /* MemoryAppTests */,
 				F4CCD5592979A1CB000436C3 /* MemoryAppUITests */,
@@ -130,12 +112,12 @@
 		F4CCD53E2979A1CA000436C3 /* MemoryApp */ = {
 			isa = PBXGroup;
 			children = (
-				F4E0B0C129831015007203BA /* whisper-lib */,
 				F4CCD56F2979D925000436C3 /* Managers */,
 				F4CCD56E2979D90E000436C3 /* Views */,
 				F4CCD5432979A1CB000436C3 /* Assets.xcassets */,
 				F4CCD5452979A1CB000436C3 /* Preview Content */,
 				F4FAA91A298AD50200203A67 /* RecordingsStruct.swift */,
+				F4ECF867298DBED9006EB283 /* Helpers.swift */,
 			);
 			path = MemoryApp;
 			sourceTree = "<group>";
@@ -298,9 +280,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4E0B0C729831076007203BA /* model-binaries in Resources */,
 				F4CCD5472979A1CB000436C3 /* Preview Assets.xcassets in Resources */,
-				F4E0B0C329831015007203BA /* whisper-lib in Resources */,
 				F4CCD5442979A1CB000436C3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -327,13 +307,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4FAA91929886A6800203A67 /* MiscellaneousStateManager.swift in Sources */,
-				F459FFCD2984271300A120D2 /* ggml-tiny.en.bin in Sources */,
-				F459FFCB2983542600A120D2 /* ggml-small.en.bin in Sources */,
-				F459FFC42983512400A120D2 /* ggml.c in Sources */,
 				F4D4D78E2988226100A465ED /* SearchManager.swift in Sources */,
-				F459FFC52983512400A120D2 /* whisper_utils.cpp in Sources */,
-				F459FFC62983512400A120D2 /* whisper.cpp in Sources */,
 				F4CCD576297B253A000436C3 /* AudioManager.swift in Sources */,
+				F4ECF868298DBED9006EB283 /* Helpers.swift in Sources */,
 				F4CCD5422979A1CA000436C3 /* ContentView.swift in Sources */,
 				F4E0B0C9298310F5007203BA /* TranscriptionManager.swift in Sources */,
 				F4CCD578297B89C7000436C3 /* RequestPermissionsView.swift in Sources */,
@@ -521,7 +497,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "MemoryApp/whisper-lib/MemoryApp-bridging-header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -558,7 +533,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "MemoryApp/whisper-lib/MemoryApp-bridging-header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
