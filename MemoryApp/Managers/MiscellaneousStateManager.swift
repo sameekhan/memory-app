@@ -39,7 +39,12 @@ class MiscellaneousStateManager: NSObject, ObservableObject {
         } else {
             if let data = FileManager.default.contents(atPath: filePath.path),
                let recordingsArray = try? JSONDecoder().decode([Recording].self, from: data) {
-                    print(recordingsArray)
+                for record in recordingsArray {
+                    print("========")
+                    print("recording name: \(record.recordingFileName)")
+                    print("transcription name: \(record.transcriptionFileName)")
+                    print("is indexed?: \(record.isIndexed)")
+                }
             }
         }
     }

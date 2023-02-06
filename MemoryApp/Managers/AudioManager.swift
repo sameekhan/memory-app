@@ -87,7 +87,7 @@ class AudioManager: NSObject, ObservableObject {
         // just for testing
 //        self.audioRecorder?.record(forDuration: TimeInterval(self.recordingDuration * 60))
         print("started recording")
-        self.audioRecorder?.record(forDuration: TimeInterval(5))
+        self.audioRecorder?.record(forDuration: TimeInterval(self.recordingDuration))
         self.recordingStartTime = Date()
         self.isRecording.toggle()
     }

@@ -111,6 +111,7 @@ struct SearchManager {
     }
     
     static func constructIndex(metadataIdentifier: UUID) {
+        print("beginning indexing")
         // get metadata record
         let record = getRecordingsFromMetadataFile().filter {
             return $0.identifier == metadataIdentifier
@@ -135,6 +136,7 @@ struct SearchManager {
         
         // Update inverted index
         SearchManager().updateInvertedIndex(uniqueTokens:uniqueTokens, documentID: record.transcriptionFileName)
+        print("finished indexing")
     }
     
 }
