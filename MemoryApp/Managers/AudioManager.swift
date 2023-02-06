@@ -162,14 +162,10 @@ extension AudioManager: AVAudioRecorderDelegate {
                 print("background transcription and indexing")
                 // Perform a long-running task in the background
                 let transcriptionManager = TranscriptionManager()
-                DispatchQueue.main.async {
-                    SearchManager.constructIndex(metadataIdentifier: recordingIdentifier)
-                }
                 transcriptionManager.recognizeSpeech(
                     from: audioRecordingUrl!,
                     metadataIdentifier: recordingIdentifier
                 )
-                
             }
         }
     }

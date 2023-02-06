@@ -34,8 +34,9 @@ class TranscriptionManager: NSObject, ObservableObject {
                 audioRecordingUrl: wavFileUrl,
                 metadataIdentifier: metadataIdentifier
             )
+            SearchManager.constructIndex(metadataIdentifier: metadataIdentifier)
+            self.isProcessing.toggle()
         }
-        self.isProcessing.toggle()
     }
     
     func saveTranscriptionToFile(transcription: String, audioRecordingUrl: URL, metadataIdentifier: UUID) {

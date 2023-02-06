@@ -44,7 +44,38 @@ struct SearchManager {
         return Array(Set(tokens))
     }
     
+    static func getInvertedIndexPath() -> URL {
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        return documentsDirectory.appendingPathComponent("invertedIndex.json")
+    }
+    
     static func updateInvertedIndex(uniqueTokens: [String], documentID: String) {
+        print("Unique tokens: \(uniqueTokens) \nDocument ID: \(documentID)")
+        // Initialize an empty dictionary to store the inverted index
+        var invertedIndex: [String: [String]] = [:]
+        
+        // read in existing index from file
+        invertedIndex = SearchManager.getInvertedIndex()
+        
+        // Iterate over all unique tokens
+        for token in uniqueTokens {
+            var documentIDs = invertedIndex[token] ?? []
+            // Add the current token and its corresponding document IDs to the inverted index
+            documentIDs.append(documentID)
+            invertedIndex[token] = Array(Set(documentIDs))
+        }
+        
+        // update the inverted index
+        // Encode the updated array of Recordings objects and write it to the JSON file
+        let updatedData = try? JSONEncoder().encode(invertedIndex)
+        do {
+            try updatedData?.write(to: SearchManager.getInvertedIndexPath())
+        } catch {
+            print(error)
+        }
+    }
+    
+    static func getInvertedIndex() -> [String: [String]] {
         // Initialize an empty dictionary to store the inverted index
         var invertedIndex: [String: [String]] = [:]
         
@@ -53,35 +84,21 @@ struct SearchManager {
         let filePath = documentsDirectory.appendingPathComponent("invertedIndex.json")
         // Read the JSON file and decode the data into an array of Recordings objects
         if let data = FileManager.default.contents(atPath: filePath.path),
-           var invertedIndexData = try? JSONDecoder().decode([String: [String]].self, from: data) {
+           let invertedIndexData = try? JSONDecoder().decode([String: [String]].self, from: data) {
             invertedIndex = invertedIndexData
         }
-        
-        // Iterate over all unique tokens
-        for token in uniqueTokens {
-            var documentIDs = invertedIndex[token]
-            // Add the current token and its corresponding document IDs to the inverted index
-            documentIDs?.append(documentID)
-            invertedIndex[token] = Array(Set(documentIDs!))
-        }
-        
-        // update the inverted index
-        // Encode the updated array of Recordings objects and write it to the JSON file
-        let updatedData = try? JSONEncoder().encode(invertedIndex)
-        do {
-            try updatedData?.write(to: filePath)
-        } catch {
-            print(error)
-        }
+        print("Inverted index returned: \(invertedIndex)")
+        return invertedIndex
     }
     
     // This function takes an inverted index stored as a dictionary and a search query as input
-    func search(invertedIndex: [String: [Int]], query: String) -> [Int] {
+    static func search(query: String) -> [String] {
+        let invertedIndex = SearchManager.getInvertedIndex()
         // Split the search query into individual terms
         let terms = query.split(separator: " ")
         
         // Initialize a set to store the document IDs that match the search query
-        var matchingDocumentIds = Set<Int>()
+        var matchingDocumentIds = Set<String>()
         
         // Loop through each term in the search query
         for term in terms {
@@ -122,9 +139,7 @@ struct SearchManager {
         if let data = try? Data(contentsOf: getTranscriptionFilePath(fileName: record.transcriptionFileName)) {
             transcriptionText = String(data: data, encoding: .utf8)!
         }
-//        let data = FileManager.default.contents(atPath: record.transcriptionFileName)
-//        let transcriptionText = String(decoding: data!, as: UTF8.self)
-
+        
         // Tokenize the document
         let transcriptionTokens = SearchManager.tokenize(text: transcriptionText)
 

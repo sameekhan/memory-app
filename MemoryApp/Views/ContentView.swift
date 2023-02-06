@@ -21,7 +21,6 @@ struct ContentView: View {
                 .font(.largeTitle)
                 .foregroundColor(Color.purple)
                 .padding(.bottom)
-            
             if miscellaneousStateManager.is_first_time_user {
                 // TODO: launch FTU flow by calling the FTU view
             }
@@ -29,22 +28,21 @@ struct ContentView: View {
             if audioManager.permission != .granted {
                 RequestPermissionsView()
                     .environmentObject(audioManager)
-            } else {
+            } else if !audioManager.isRecording {
                 AudioRecorderView()
                     .environmentObject(audioManager)
                     .environmentObject(transcriptionManager)
+            } else {
+                SearchBarView()
             }
         }
         .padding()
         .frame(
             maxWidth: .infinity,
-            maxHeight: 50,
+            maxHeight: 15,
             alignment: .center)
         .position(x:195, y:100)
-        
-        
     }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {

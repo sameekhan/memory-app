@@ -55,11 +55,17 @@ class MiscellaneousStateManager: NSObject, ObservableObject {
 
         let fileManager = FileManager.default
         if !fileManager.fileExists(atPath: filePath.path) {
+            print("inverted index didn't exist so creating a new one")
             let data = Data()
             do {
                 try data.write(to: filePath)
             } catch {
                 print(error)
+            }
+        } else {
+            if let data = FileManager.default.contents(atPath: filePath.path),
+               let invertedIndex = try? JSONDecoder().decode([String: [String]].self, from: data) {
+                print("Existing inverted index: \(invertedIndex)")
             }
         }
     }

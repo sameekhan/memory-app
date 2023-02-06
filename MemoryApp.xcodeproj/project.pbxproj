@@ -20,6 +20,7 @@
 		F4D4D78E2988226100A465ED /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D4D78D2988226100A465ED /* SearchManager.swift */; };
 		F4E0B0C9298310F5007203BA /* TranscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0B0C8298310F5007203BA /* TranscriptionManager.swift */; };
 		F4ECF868298DBED9006EB283 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ECF867298DBED9006EB283 /* Helpers.swift */; };
+		F4ECF86A299158E1006EB283 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ECF869299158E1006EB283 /* SearchBarView.swift */; };
 		F4EECA57298350A7006EA555 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = F4EECA56298350A7006EA555 /* AudioKit */; };
 		F4FAA91929886A6800203A67 /* MiscellaneousStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAA91829886A6800203A67 /* MiscellaneousStateManager.swift */; };
 		F4FAA91B298AD50200203A67 /* RecordingsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FAA91A298AD50200203A67 /* RecordingsStruct.swift */; };
@@ -59,6 +60,7 @@
 		F4D4D78D2988226100A465ED /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		F4E0B0C8298310F5007203BA /* TranscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionManager.swift; sourceTree = "<group>"; };
 		F4ECF867298DBED9006EB283 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		F4ECF869299158E1006EB283 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		F4FAA91829886A6800203A67 /* MiscellaneousStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscellaneousStateManager.swift; sourceTree = "<group>"; };
 		F4FAA91A298AD50200203A67 /* RecordingsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsStruct.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -154,6 +156,7 @@
 				F4CCD5412979A1CA000436C3 /* ContentView.swift */,
 				F4CCD577297B89C7000436C3 /* RequestPermissionsView.swift */,
 				F4CCD579297B910A000436C3 /* AudioRecorderView.swift */,
+				F4ECF869299158E1006EB283 /* SearchBarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				F4CCD5422979A1CA000436C3 /* ContentView.swift in Sources */,
 				F4E0B0C9298310F5007203BA /* TranscriptionManager.swift in Sources */,
 				F4CCD578297B89C7000436C3 /* RequestPermissionsView.swift in Sources */,
+				F4ECF86A299158E1006EB283 /* SearchBarView.swift in Sources */,
 				F4CCD5402979A1CA000436C3 /* MemoryAppApp.swift in Sources */,
 				F4FAA91B298AD50200203A67 /* RecordingsStruct.swift in Sources */,
 				F4CCD57A297B910A000436C3 /* AudioRecorderView.swift in Sources */,
