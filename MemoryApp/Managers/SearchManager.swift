@@ -44,7 +44,7 @@ struct SearchManager {
         return Array(Set(tokens))
     }
     
-    func updateInvertedIndex(uniqueTokens: [String], documentID: String) {
+    static func updateInvertedIndex(uniqueTokens: [String], documentID: String) {
         // Initialize an empty dictionary to store the inverted index
         var invertedIndex: [String: [String]] = [:]
         
@@ -135,8 +135,33 @@ struct SearchManager {
         let uniqueTokens = SearchManager.createUniqueTokenList(tokens: processedTranscriptionTokens)
         
         // Update inverted index
-        SearchManager().updateInvertedIndex(uniqueTokens:uniqueTokens, documentID: record.transcriptionFileName)
+        SearchManager.updateInvertedIndex(uniqueTokens:uniqueTokens, documentID: record.transcriptionFileName)
+        
+        // update metadata file
+        SearchManager.updateAudioRecordingMetadataForIndex(identifier: metadataIdentifier)
+        
         print("finished indexing")
+    }
+    
+    static func updateAudioRecordingMetadataForIndex(identifier: UUID) {
+        
+        var recordings = getRecordingsFromMetadataFile()
+        
+        // modify record to include transcription file name
+        for i in 0..<recordings.count {
+            if recordings[i].identifier == identifier {
+                recordings[i].isIndexed = true
+                break
+            }
+        }
+
+        // Encode the updated array of Recordings objects and write it to the JSON file
+        let updatedData = try? JSONEncoder().encode(recordings)
+        do {
+            try updatedData?.write(to: getMetadataFilePath())
+        } catch {
+            print(error)
+        }
     }
     
 }
