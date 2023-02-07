@@ -40,10 +40,10 @@ class MiscellaneousStateManager: NSObject, ObservableObject {
             if let data = FileManager.default.contents(atPath: filePath.path),
                let recordingsArray = try? JSONDecoder().decode([Recording].self, from: data) {
                 for record in recordingsArray {
-                    print("========")
-                    print("recording name: \(record.recordingFileName)")
-                    print("transcription name: \(record.transcriptionFileName)")
-                    print("is indexed?: \(record.isIndexed)")
+//                    print("========")
+//                    print("recording name: \(record.recordingFileName)")
+//                    print("transcription name: \(record.transcriptionFileName)")
+//                    print("is indexed?: \(record.isIndexed)")
                 }
             }
         }
@@ -61,11 +61,6 @@ class MiscellaneousStateManager: NSObject, ObservableObject {
                 try data.write(to: filePath)
             } catch {
                 print(error)
-            }
-        } else {
-            if let data = FileManager.default.contents(atPath: filePath.path),
-               let invertedIndex = try? JSONDecoder().decode([String: [String]].self, from: data) {
-                print("Existing inverted index: \(invertedIndex)")
             }
         }
     }

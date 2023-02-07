@@ -16,10 +16,15 @@ struct AudioRecorderView: View {
         VStack {
             if !audioManager.isRecording {
                 // TODO: update this with its own view
-                Text("Tap to Record")
-                Button("Start Recording") {
-                    audioManager.startRecording()
-                }
+                Image("microphoneicon")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 50, height: 50)
+                    .onTapGesture {
+                        audioManager.startRecording()
+                    }
+
+                Text("Start Recording")
             }
         }
     }

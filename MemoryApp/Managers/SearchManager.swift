@@ -87,7 +87,7 @@ struct SearchManager {
            let invertedIndexData = try? JSONDecoder().decode([String: [String]].self, from: data) {
             invertedIndex = invertedIndexData
         }
-        print("Inverted index returned: \(invertedIndex)")
+//        print("Inverted index returned: \(invertedIndex)")
         return invertedIndex
     }
     
